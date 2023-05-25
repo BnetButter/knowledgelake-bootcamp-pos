@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri App</title>
+    <script type="module" src="/src/main.ts" defer></script>
+    <style>
+      .logo.vite:hover {
+        filter: drop-shadow(0 0 2em #747bff);
+      }
+
+      .logo.typescript:hover {
+        filter: drop-shadow(0 0 2em #2d79c7);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="left">
+        <div id="button-bar" class="button-bar">
+            
+        </div>
+        <div id="menu-viewport" class="viewport">
+            
+        </div>
+    </div>
+    <div class="right">
+        <h2>Shopping Cart</h2>
+        <div id="shopping-cart-container" class="viewport">
+
+        </div>
+        <div class="checkout">
+            <div class="total">
+                <form>
+                    <label for="subtotal">Subtotal:</label>
+                    <input type="text" id="subtotal" name="subtotal" readonly>
+                    <label for="tax">Tax:</label>
+                    <input type="text" id="tax" name="tax" readonly>
+                    <label for="total">Total:</label>
+                    <input type="text" id="total" name="total" readonly>
+                </form>
+            </div>
+            <button class="done">Done</button>
+        </div>
+    </div>
+
+    <div id="option-modal" class="modal">
+        <div class="modal-content">
+            <form id="form1" onsubmit="event.preventDefault()">
+                <div class="checkbox-viewport">
+                    <div id="option-modal-viewport" class="checkbox-grid">
+                        <div>
+                            <input type="checkbox" id="option1" name="option1" value="Option1">
+                            <label for="option1">Option 1</label>
+                        </div>
+                      <!-- Add more checkboxes as needed -->
+                    </div>
+                  </div>
+                <div class="modal-buttons">
+                    <input id="option-modal-done" type="submit" value="Done">
+                    <input id="option-modal-cancel" type="button" value="Cancel" class="cancel">
+                </div>
+            </form>
+        </div>  
+    </div>
+</body>
+</html>
