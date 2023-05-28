@@ -165,7 +165,7 @@ function createShoppingCartItem(id:Number, menu:MenuAPI): ShoppingCartItem {
 function createAddItemCallBack(item_id: Number, shoppingCart:ShoppingCartModel, modal: any, menu: MenuAPI) {
   return () => {
     let shoppingCartItem = createShoppingCartItem(item_id, menu)
-    if (menu.items[item_id].options) {
+    if (menu.items[item_id].options && menu.items[item_id].options.length) {
 
       let fn = () => modal.show_modal(item_id, menu, shoppingCartItem, shoppingCart);
       shoppingCartItem.showModal = fn;
@@ -225,6 +225,9 @@ function initModal(cartModel:ShoppingCartModel) {
     
     let option_value_divs = []
 
+    console.log(options)
+
+    
     options.forEach((item:FoodItem) => {
       let [ div, input ] = generateOptionModalSnippet(item.id, item.name, item.id, item.name);
       option_element?.appendChild(div);
@@ -345,7 +348,7 @@ async function updatePriceLabel(shoppingCartModel: ShoppingCartModel) {
 })).then((data:MenuAPI) => {
     let cartElement = document.getElementById("shopping-cart-container");
 
-    console.assert(cartElement)
+    console.assert(cartElement);
     
     let shoppingCartModel = createShoppingCartModel(cartElement, data);
     

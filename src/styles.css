@@ -1,11 +1,15 @@
 :root {
-  --left-color:#ddd;
-  --right-color: #bbb;
+  --left-color: #f3f3f3;
+  --right-color: #c8d6e5;
   --circle-size: 50%;
   --burger: url(https://thumbs.dreamstime.com/b/perfect-hamburger-classic-burger-american-cheeseburger-isolated-white-reflection-giant-large-massive-thick-extra-toppings-59054909.jpg)
-  --cart-background: white;
-  
+  --cart-background: #f5f6fa;
+  --button-background: #2e86de;
+  --button-hover: #1e3799;
+  --button-color: #fff;
 }
+
+
 body {
   margin: 0;
   padding: 0;
@@ -39,6 +43,14 @@ body {
   margin: 0 1em;
   padding: 1em;
   box-sizing: border-box;
+  background-color: var(--button-background);
+  color: var(--button-color);
+  border-radius: 0.5em;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button-bar button:hover {
+  background-color: var(--button-hover);
 }
 
 
@@ -60,9 +72,19 @@ body {
   font-size: 1em;
   box-sizing: border-box;
   height: 10em;
-  clip-path: circle(var(--circle-size));
   background-image: var(--burger);
-  
+  background-color: var(--button-background);
+  color: var(--button-color);
+  border: none;
+  border-radius: 10%; /* to make buttons perfectly round */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* transition for smooth transform and box-shadow changes */
+  cursor: pointer; /* change cursor when hover over the button */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* add some shadow for 3D effect */
+}
+
+.left .viewport button:hover {
+  transform: scale(1.05); /* slightly increase size when hovered */
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2); /* add more shadow when hovered */
 }
 
 
@@ -80,8 +102,11 @@ body {
   padding: 1em;
   background-color: var(--cart-background);
   border: 2px solid currentColor;
-  
+  border-radius: 0.5em;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+
+
 .ShoppingCart:hover {
   color: magenta;
   
@@ -166,18 +191,44 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* Modal Content */
+
+@keyframes animatetop {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes animatebot {
+  to {
+    transform: translate(-50%, 100%);
+    opacity: 0
+  }
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+
 .modal-content {
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
-  width: 60vw; /* Could be more or less, depending on screen size */
+  width: 60vw;
   height: 60vh;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  border-radius: 1em;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
 .modal-buttons {
@@ -213,8 +264,18 @@ body {
 }
 
 .modal-buttons input {
-  font-size: 1.5em; /* Make the font larger */
-  padding: 0.5em; /* Add some padding */
-  width: 45%; /* Take up almost half the width of the modal-buttons div */
-  margin: 2%; /* Add a little margin */
+  font-size: 1.5em;
+  padding: 0.5em;
+  width: 45%;
+  margin: 2%;
+  background-color: var(--button-background);
+  color: var(--button-color);
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.modal-buttons input:hover {
+  background-color: var(--button-hover);
 }
