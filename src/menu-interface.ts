@@ -1,6 +1,8 @@
 
 const MENU_API = "https://lai.git-pages.mst.edu/webdevbasics/menuitems/menuitems.json"
-
+// I would use environment variables, but later
+const MENU_ITEMS = "http://localhost:5080/menuitems"
+const MENU_TYPES = "http://localhost:5080/menutypes"
 
 export interface FoodItem {
     id: number;
@@ -41,49 +43,19 @@ function isValidMenu(obj: any): obj is MenuAPI {
 }
 
 
-export async function _getMenu() {
-    const option1 = {
-        method: 'GET',
-        headers: {
-          'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtldmluLmxhaUBrbm93bGVkZ2VsYWtlLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfMm9vbzN3dzBiNmE3bGIiLCJyb2xlcyI6eyJvcmctbGV2ZWwtY3JlYXRvciI6dHJ1ZSwic3VwZXIiOnRydWV9LCJ0b2tlbl92ZXJzaW9uIjoiYjc3NzQ4ZDZhZjQ1NTdlZWJmMTFiN2MyOTFiZGI3ODczNmFjYTdjOGE1ZGE3NDUwNTlkN2I4YWM2ODM3ZTY3NGQ0MzM0OGM2YmYyNjYxMDUiLCJpYXQiOjE2ODUxMTIyNDUsImV4cCI6MTY4NTE0ODI0NX0.FQYAyjIADFPdaSfpC5-hfLZiSNldrdDV6Dx836H5sb0'
-        }
-      };
-      
-    let response_items = await fetch('http://localhost:8080/api/v1/db/data/noco/p_mkekvxf7b5wanc/FoodItem/views/FoodItem?offset=0&limit=300&where=', option1)
-    let items = (await response_items.json()).list
+export async function getMenu() {
 
-    const options2 = {
-        method: 'GET',
-        headers: {
-          'xc-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtldmluLmxhaUBrbm93bGVkZ2VsYWtlLmNvbSIsImZpcnN0bmFtZSI6bnVsbCwibGFzdG5hbWUiOm51bGwsImlkIjoidXNfMm9vbzN3dzBiNmE3bGIiLCJyb2xlcyI6eyJvcmctbGV2ZWwtY3JlYXRvciI6dHJ1ZSwic3VwZXIiOnRydWV9LCJ0b2tlbl92ZXJzaW9uIjoiYjc3NzQ4ZDZhZjQ1NTdlZWJmMTFiN2MyOTFiZGI3ODczNmFjYTdjOGE1ZGE3NDUwNTlkN2I4YWM2ODM3ZTY3NGQ0MzM0OGM2YmYyNjYxMDUiLCJpYXQiOjE2ODUxMTIyNDUsImV4cCI6MTY4NTE0ODI0NX0.FQYAyjIADFPdaSfpC5-hfLZiSNldrdDV6Dx836H5sb0'
-        }
-      };
-      
-    let response_types = await fetch('http://localhost:8080/api/v1/db/data/noco/p_mkekvxf7b5wanc/ItemType/views/ItemType?offset=0&limit=25&where=', options2)
-    let types = (await response_types.json()).list
+    let items_resp = await fetch(MENU_ITEMS);
+    let types_resp = await fetch(MENU_TYPES);
+    let items = await items_resp.json();
+    let types = await types_resp.json();
 
-    items = items.map((item, i) => {
-            item.id = i
-            item.price = parseInt(item.price)
-            if (item.options)
-                item.options = item.options.split(',').map(Number);
-            else {
-                item.options = []
-            }
-            return item;
-        }
-    )
-
-    types = types.map((type, i) => {
-        type.id = i;
-        return type
-    })
 
     return { items, types }
 }
 
 
-export async function getMenu() {
+export async function _getMenu() {
     try {
         const response = await fetch(MENU_API);
         if (!response.ok) {
